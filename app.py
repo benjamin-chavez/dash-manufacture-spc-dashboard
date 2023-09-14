@@ -1,6 +1,7 @@
 import os
 import pathlib
 
+
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
@@ -265,7 +266,7 @@ def generate_modal():
                         The sparkline on top panel and control chart on bottom panel show Shewhart process monitor using mock data.
                         The trend is updated every other second to simulate real-time measurements. Data falling outside of six-sigma control limit are signals indicating 'Out of Control(OOC)', and will
                         trigger alerts instantly for a detailed checkup.
-                        
+
                         Operators may stop measurement by clicking on `Stop` button, and edit specification parameters by clicking specification tab.
 
                         ###### Source Code
@@ -814,7 +815,6 @@ def update_count(interval, col, data):
         return "0", "0.00%", 0.00001, "#92e0d3"
 
     if interval > 0:
-
         if interval >= max_length:
             total_count = max_length - 1
         else:
