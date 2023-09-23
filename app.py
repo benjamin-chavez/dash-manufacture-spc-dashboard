@@ -1,6 +1,8 @@
 import os
+from dotenv import load_dotenv
 import pathlib
 
+load_dotenv()
 
 import dash
 import dash_core_components as dcc
@@ -12,6 +14,15 @@ import dash_daq as daq
 
 import pandas as pd
 
+import dash_auth
+
+LOGIN_USERNAME = os.getenv('LOGIN_USERNAME')
+PASSWORD = os.getenv('PASSWORD')
+
+VALID_USERNAME_PASSWORD_PAIRS = {
+    LOGIN_USERNAME: PASSWORD
+}
+
 app = dash.Dash(
     __name__,
     meta_tags=[{"name": "viewport", "content": "width=device-width, initial-scale=1"}],
@@ -19,6 +30,13 @@ app = dash.Dash(
 app.title = "Manufacturing SPC Dashboard"
 server = app.server
 app.config["suppress_callback_exceptions"] = True
+
+
+auth = dash_auth.BasicAuth(
+    app,
+    VALID_USERNAME_PASSWORD_PAIRS
+)
+
 
 APP_PATH = str(pathlib.Path(__file__).parent.resolve())
 df = pd.read_csv(os.path.join(APP_PATH, os.path.join("data", "spc_data.csv")))
